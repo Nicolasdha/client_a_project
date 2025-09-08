@@ -1,0 +1,12 @@
+client_a_project:
+  outputs:
+    dev:
+      dbname: client_a_asana
+      host: localhost
+      pass: Pittsburgh1
+      port: 5433
+      schema: client_a_schema
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
