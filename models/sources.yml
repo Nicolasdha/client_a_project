@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: asana_connector
+    database: client_a_asana
+    schema: public
+    tables:
+      - name: assignee
+      - name: project
+      - name: project_task
+      - name: tag
+      - name: task
+      - name: task_tag
