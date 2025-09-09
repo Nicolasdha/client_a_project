@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: stg_asana_assignees
+    description: "Staging model for the raw assignee data"
+    columns:
+      - name: assignee_id
+        description: "The unique identifier for the assignee"
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+      - name: last_name
+
+  - name: stg_asana_project
+    description: "Staging model for the raw project data"
+    columns:
+      - name: project_id
+        description: "The unique identifier for the project"
+        tests:
+          - unique
+          - not_null
+      - name: project_name
+      - name: created_at
+      - name: archived
+
+  - name: stg_asana_project_task
+    description: "Staging model for the raw project-task linking table"
+    columns:
+      - name: project_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_asana_projects')
+              field: project_id
+      - name: task_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_asana_tasks')
+              field: task_id
+
+  - name: stg_asana_tag
+    description: "Staging model for the raw tag data"
+    columns:
+      - name: tag_id
+        description: "The unique identifier for the tag"
+        tests:
+          - unique
+          - not_null
+      - name: category
+      - name: value
+          
+  - name: stg_asana_task
+    description: "Staging model for the raw task data"
+    columns:
+      - name: task_id
+        description: "The unique identifier for the task"
+        tests:
+          - unique
+          - not_null
+      - name: assignee_id
+        description: "The unique identifier of the task's assignee"
+        tests:
+          - relationships:
+              to: ref('stg_asana_assignees')
+              field: assignee_id
+      - name: parent_task_id
+        description: "The identifier for the task's parent"
+        tests:
+          - relationships:
+              to: ref('stg_asana_tasks')
+              field: task_id
+      - name: task_name
+      - name: created_at
+      - name: completed_at
+      - name: due_date
+      - name: notes
+
+  - name: stg_asana_task_tag
+    description: "Staging model for the raw task-tag linking table"
+    columns:
+      - name: task_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_asana_tasks')
+              field: task_id
+      - name: tag_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_asana_tags')
+              field: tag_id

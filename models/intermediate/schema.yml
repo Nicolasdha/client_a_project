@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: int_asana_tasks_enriched
+    description: "An intermediate model containing enriched task data. It returns tasks and their associated projects, assignees and tags."
+    columns:
+      - name: task_id
+        description: "The unique identifier for each task."
+        tests:
+          - unique
+          - not_null
+      - name: created_at_year
+        description: "The year the task was created"
+      - name: created_at_month
+        description: "The first day of the month that the task was created"
+      - name: created_at_date
+        description: "The date the task was created"
+      - name: completed_at_year
+        description: "The year the task was completed. It will be an empty cell if the task is not yet completed."
+      - name: completed_at_month
+        description: "The first day of the month the task was completed. It will be an empty cell if the task is not yet completed."
+      - name: completed_at_date
+        description: "The date the task was completed. It will be an empty cell if the task is not yet completed."
+      - name: parent_task
+        description: "The name of the parent task"
+      - name: task_id
+        description: "Id of the task"
+      - name: task
+        description: "The name of the task"
+      - name: projects
+        description: "A comma-separated list of projects the task belongs to"
+      - name: assignee
+        description: "The full name of the task's assignee"
+      - name: cost_center
+        description: "The value for the Cost Center tag field"
+      - name: department
+        description: "The value for the Department tag field"
+      - name: location
+        description: "The value for the Location tag field"
+      - name: notes
+        description: "The notes field for the task"
+      - name: count
+        description: "Aggregation field"
