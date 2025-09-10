@@ -8,7 +8,7 @@ WITH tasks_with_assignee AS (
     EXTRACT(YEAR FROM t.completed_at::timestamp) AS completed_at_year,
     DATE_TRUNC('month', t.completed_at::DATE)::DATE AS completed_at_month,
     t.completed_at::DATE AS completed_at_date,
-    parentTask.task_name AS parent_task,
+    (CASE WHEN parentTask.task_name IS NOT NULL THEN parentTask.task_name ELSE t.task_name END) AS parent_task,
     t.task_id AS task_id,
     t.task_name AS task,
     t.notes AS notes,
