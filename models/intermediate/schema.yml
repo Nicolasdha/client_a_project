@@ -22,7 +22,7 @@ models:
       - name: completed_at_date
         description: "The date the task was completed. It will be an empty cell if the task is not yet completed."
       - name: parent_task
-        description: "The name of the parent task"
+        description: "The name of the parent task, or the task's own name if it has no parent"
       - name: task_id
         description: "Id of the task"
       - name: task
@@ -39,5 +39,43 @@ models:
         description: "The value for the Location tag field"
       - name: notes
         description: "The notes field for the task"
+      - name: count
+        description: "Aggregation field"
+  
+  - name: asana_tasks_weekly
+    description: "A weekly report of tasks that were open in a given week"
+    columns:
+      - name: year
+        description: "The year of the week_start date"
+      - name: month
+        description: "The first day of the month for the week_start date"
+      - name: week
+        description: "The start date of the week"
+        tests:
+          - not_null
+      - name: "parent task"
+        description: "The name of the parent task, or the task's own name if it has no parent"
+      - name: "task id"
+        description: "The unique identifier for each task"
+        tests:
+          - not_null
+      - name: task
+        description: "The name of the task"
+      - name: projects
+        description: "A comma-separated list of projects the task belongs to"
+      - name: assignee
+        description: "The full name of the task's assignee"
+      - name: cost_center
+        description: "The value for the Cost Center tag field"
+      - name: department
+        description: "The value for the Department tag field"
+      - name: location
+        description: "The value for the Location tag field"
+      - name: notes
+        description: "The notes field for the task"
+      - name: created_at_date
+        description: "The date the task was created"
+      - name: completed_at_date
+        description: "The date the task was completed. Null if not yet completed"
       - name: count
         description: "Aggregation field"

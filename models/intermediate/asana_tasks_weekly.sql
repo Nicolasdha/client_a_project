@@ -4,14 +4,14 @@ WITH date_spine AS (
       DATE_TRUNC('week', generate_series) + INTERVAL '6 days' AS week_end
   FROM
       generate_series(
-          (SELECT DATE_TRUNC('week', MIN(created_at_date)) FROM {{ ref('int_asana_tasks_enriched') }}),
+          (SELECT DATE_TRUNC('week', MIN(created_at_date)) FROM {{ ref('asana_tasks') }}),
           NOW()::timestamp,
           '1 week'::interval
       ) AS generate_series
 ),
 enriched_tasks AS (
   SELECT *
-  FROM {{ ref('int_asana_tasks_enriched') }}
+  FROM {{ ref('asana_tasks') }}
 ),
 tasks_weekly AS (
   SELECT
